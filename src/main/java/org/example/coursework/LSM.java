@@ -6,12 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class LSM {
-    public static void main(String[] args){
-        try {
-            File myfile = new File("inventoy_legacy.txt");
-            FileReader fileReader = new FileReader(myfile);
+    private String fileName;
 
-            BufferedReader reader = new BufferedReader(fileReader);
+    public LSM(String fileName){
+        this.fileName = fileName;
+    }
+
+    public void lowStock(int threshold){
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
             String line;
             while ((line = reader.readLine()) != null){
                 String[] fields = line.split("[,|;]");
@@ -19,18 +21,17 @@ public class LSM {
                     String qty = fields[4].trim();
                     try {
                         int qtyI = Integer.parseInt(qty);
-                        if (qtyI <= 5){
+                        if (qtyI <= threshold){
                             System.out.println(line);
                         }
-                    } catch (NumberFormatException e) {
-
-                    }
+                    } catch (NumberFormatException e){
                 }
             }
-            reader.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+
+    }catch (IOException e) {
+            e.printStackTrace();
+        }}
     }
-}
+
