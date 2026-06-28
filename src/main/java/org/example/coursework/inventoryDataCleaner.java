@@ -64,7 +64,7 @@ public class inventoryDataCleaner {
 
                             String category = "Unknown";
                             if (fields.length > 5 && !fields[5].trim().isEmpty()) {
-                                category = fields[5].trim().toLowerCase();
+                                category = fields[5].trim().toUpperCase();
                             }
 
                             String iDate = "";
@@ -73,7 +73,7 @@ public class inventoryDataCleaner {
                             }
                             String cleanDate = normalizeDate(iDate);
 
-                            String imageFile = "NULL";
+                            String imageFile = "no_image.png";
                             String lastField = fields[fields.length - 1].trim();
                             if (lastField.endsWith(".jpg") || lastField.endsWith(".jpeg") || lastField.endsWith(".png") || lastField.endsWith(".svg")){
                                 imageFile = lastField;
