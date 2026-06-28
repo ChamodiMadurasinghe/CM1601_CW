@@ -23,14 +23,16 @@ public class LSM {
                         if (qtyI <= threshold){
                             System.out.println(line);
                         }
-                    } catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
+
+                    }
                 }
             }
-        }
 
 
-    }catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        }}
+        }
     }
+}
 
