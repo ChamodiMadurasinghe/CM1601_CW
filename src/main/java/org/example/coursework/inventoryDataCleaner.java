@@ -6,10 +6,10 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.time.*;
 
-public class dataCleaner {
+public class inventoryDataCleaner {
     private String initialFile;
 
-    public dataCleaner(String initialFile){
+    public inventoryDataCleaner(String initialFile){
         this.initialFile = initialFile;
     }
 
@@ -55,32 +55,31 @@ public class dataCleaner {
                             String brand = fields[2].trim();
                             if (brand.isEmpty()) brand = "Unknown";
 
-                            String rawPrice = fields[3].trim();
-                            rawPrice = rawPrice.replace("Rs.", "").replace("Rs", "").trim();
-                            double price = Double.parseDouble(rawPrice);
+                            String iPrice = fields[3].trim();
+                            iPrice = iPrice.replace("Rs.", "").replace("Rs", "").trim();
+                            double price = Double.parseDouble(iPrice);
 
-                            String rawQty = fields[4].trim();
-                            int quantity = Integer.parseInt(rawQty);
+                            String qty = fields[4].trim();
+                            int quantity = Integer.parseInt(qty);
 
                             String category = "Unknown";
                             if (fields.length > 5 && !fields[5].trim().isEmpty()) {
-                                category = fields[5].trim().toUpperCase();
+                                category = fields[5].trim().toLowerCase();
                             }
 
-                            String rawDate = "";
+                            String iDate = "";
                             if (fields.length > 6) {
-                                rawDate = fields[6].trim();
+                                iDate = fields[6].trim();
                             }
-                            String cleanDate = normalizeDate(rawDate);
+                            String cleanDate = normalizeDate(iDate);
 
-                            String imageFile = "no_image.png";
+                            String imageFile = "NULL";
                             String lastField = fields[fields.length - 1].trim();
-                            if (lastField.endsWith(".jpg") || lastField.endsWith(".jpeg") || lastField.endsWith(".png")) {
+                            if (lastField.endsWith(".jpg") || lastField.endsWith(".jpeg") || lastField.endsWith(".png") || lastField.endsWith(".svg")){
                                 imageFile = lastField;
                             }
 
-                            writer.printf("%s,%s,%s,%.2f,%d,%s,%s,%s%n",
-                                    id, name, brand, price, quantity, category, cleanDate, imageFile);
+                            writer.printf("%s|%s|%s|%.2f|%d|%s|%s|%s%n", id, name, brand, price, quantity, category, cleanDate, imageFile);
 
                             cleanedCount++;
 
