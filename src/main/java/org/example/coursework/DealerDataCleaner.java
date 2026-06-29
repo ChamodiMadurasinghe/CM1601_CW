@@ -1,13 +1,12 @@
 package org.example.coursework;
 
 import java.io.*;
-import java.util.*;
 import java.io.BufferedReader;
 
-public class dealerDataCleaner {
+public class DealerDataCleaner {
     private String initialFile;
 
-    public dealerDataCleaner(String initialFile) {
+    public DealerDataCleaner(String initialFile) {
         this.initialFile = initialFile;
     }
 
@@ -26,27 +25,32 @@ public class dealerDataCleaner {
                 if (fields.length >= 2) {
                     try {
                         String id = fields[0].trim();
+                        if(id.isEmpty()){
+                            id = "NULL";
+                        }
                         String name = fields[1].trim();
+                        if(name.isEmpty()){
+                            name = "NULL";
+                        }
 
                         String contactNumber = "NULL";
                         if (fields.length > 2 && !fields[2].trim().isEmpty()) {
                             contactNumber = fields[2].trim();
                         }
 
-                        String location = "Unknown";
+                        String location = "NULL";
                         if (fields.length > 3 && !fields[3].trim().isEmpty()) {
-                            location = fields[3].trim().toLowerCase();
+                            location = fields[3].trim().toUpperCase();
                         }
 
                         writer.printf("%s|%s|%s|%s%n", id, name, contactNumber, location);
                         cleanedCount++;
 
                     }catch (NumberFormatException e) {
-                        System.err.println("Skipped unparseable row values: " + line.trim());
                     }
                 }
             }
-            System.out.println("Success! Cleaned and unified " + cleanedCount + " records inside " + finalFile);
+            System.out.println("Success! Cleaned " + cleanedCount + " records into " + finalFile);
         } catch (FileNotFoundException e) {
             System.err.println("Error: The source file could not be found: " + e.getMessage());
         } catch (IOException e) {
