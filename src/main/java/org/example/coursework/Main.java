@@ -10,5 +10,10 @@ public class Main {
 
         LSM sReader = new LSM("inventory_clean.txt");
         sReader.lowStock(5);
+
+        ManageInventory CRUD = new ManageInventory("inventory_clean.txt");
+        CRUD.addPart();
+
+
     }
 }
