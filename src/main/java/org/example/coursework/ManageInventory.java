@@ -1,5 +1,7 @@
 package org.example.coursework;
 
+import javafx.animation.ScaleTransition;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,49 +27,6 @@ public class ManageInventory {
         private String category;
         private String date;
         private String imageFile;
-
-        public Part(String id, String name, String brand, double price, int quantity, String category, String date, String imageFile) {
-            this.id = id;
-            this.name = name;
-            this.brand = brand;
-            this.price = price;
-            this.quantity = quantity;
-            this.category = category;
-            this.date = date;
-            this.imageFile = imageFile;
-        }
-        /*
-        public String getId(){
-            return id;
-        }
-        public String getName(){
-            return name;
-        }
-        public String getBrand(){
-            return brand;
-        }
-        public double getprice(){
-            return price;
-        }
-        public int getquantity(){
-            return quantity;
-        }
-        public String getCategory(){
-            return category;
-        }
-        public String getDate(){
-            return date;
-        }
-        public String getImageFile(){
-            return imageFile;
-        }
-        public String toCsvFile() {
-            return String.format("%s,%s,%s,%.2f,%d,%s,%s,%s",
-                    id, name, brand, price, quantity, category, date, imageFile);
-        }
-*/
-
-
     }
 
     public String addPart() {
@@ -81,7 +40,24 @@ public class ManageInventory {
         String date = validateDate();
         String imageFile = validateImgFile();
 
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(initialFile, true)))) {
+
+            String mBrand = brand.isEmpty() ? "NULL" : brand;
+            String mPrice = (price == null || price.isEmpty()) ? "NULL" : price;
+            String mQty = (quantity == null || quantity.isEmpty()) ? "NULL" : quantity;
+            String mCategory = category.isEmpty() ? "NULL" : category;
+            String mDate = (date == null || date.isEmpty()) ? "NULL" : date;
+            String mImg = imageFile.isEmpty() ? "NULL" : imageFile;
+
+            writer.println(id + "," + name + "," + mBrand + "," + mPrice + "," + mQty + "," + mCategory + "," + mDate + "," + mImg);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing to inventory file: " + initialFile, e);
+
+        }
+
         return "Part " + id + " , " + name + " added to the " + initialFile + " successfully.";
+
     }
 
     private String validateId() {
@@ -158,7 +134,7 @@ public class ManageInventory {
         String brand = scanner.nextLine().trim();
 
         if (brand.isEmpty()) {
-            System.out.println("NULL");
+            System.out.println("Enter part brand:NULL");
         }
         return brand;
     }
@@ -172,12 +148,14 @@ public class ManageInventory {
                 return null;
             }
             try {
-                double iprice = Double.parseDouble(price);
+                double iprice = Double.parseDouble(
+                        price.replace("Rs.","").replace("Rs",""));
                 if (iprice < 0.00) {
                     System.out.println("Price cannot be negative.");
                     continue;
                 }
                 return price;
+
 
 
             } catch (NumberFormatException e) {
@@ -240,7 +218,7 @@ public class ManageInventory {
     }
 
     private String validateImgFile(){
-        System.out.print("Enter image file: ");
+        System.out.print("Enter image file (.jpeg / .png / .svg): ");
         String imgFile = scanner.nextLine().trim();
 
         if (imgFile.isEmpty()) {
@@ -249,6 +227,8 @@ public class ManageInventory {
         return imgFile;
     }
 }
+
+
 
 
 
