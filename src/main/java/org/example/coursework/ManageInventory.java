@@ -134,7 +134,7 @@ public class ManageInventory {
         String brand = scanner.nextLine().trim();
 
         if (brand.isEmpty()) {
-            System.out.println("Enter part brand:NULL");
+            System.out.println("NULL");
         }
         return brand;
     }
