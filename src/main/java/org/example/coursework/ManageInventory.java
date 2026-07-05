@@ -1,6 +1,5 @@
 package org.example.coursework;
 
-import javafx.animation.ScaleTransition;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -226,6 +225,24 @@ public class ManageInventory {
         }
         return imgFile;
     }
+
+    public void updatePart(){
+        System.out.println("Enter part ID to update (ex:p001/P001): ");
+        String inputId = scanner.nextLine().trim().toUpperCase();
+
+        if (!idExists(inputId)){
+            System.out.println("Part ID does not exists in the inventory.");
+            return;
+        }
+        if(inputId.matches(id)){
+
+        }
+
+    }
+
+
+
+
 }
 
 
