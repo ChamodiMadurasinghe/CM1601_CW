@@ -10,6 +10,9 @@ public class Main {
         DealerDataCleaner dReader = new DealerDataCleaner("dealers_legacy.txt");
         dReader.cleanLegacy("dealer_clean.txt");
 
+        RDS dealerSelector = new RDS("dealer_clean.txt");
+        dealerSelector.displayDealers(4);
+
         Map<String ,Integer> thresholds = new HashMap<>();
         thresholds.put("ENGINE" ,5);
         thresholds.put("ELECTRICAL" ,10);
