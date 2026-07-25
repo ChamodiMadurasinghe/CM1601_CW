@@ -1,5 +1,7 @@
 package org.example.coursework;
 
+import java.util.*;
+
 public class Main {
     public static void main (String[] args) {
         InventoryDataCleaner iReader = new InventoryDataCleaner("inventoy_legacy.txt");
@@ -8,11 +10,20 @@ public class Main {
         DealerDataCleaner dReader = new DealerDataCleaner("dealers_legacy.txt");
         dReader.cleanLegacy("dealer_clean.txt");
 
-        LSM sReader = new LSM("inventory_clean.txt");
-        sReader.lowStock(5);
+        Map<String ,Integer> thresholds = new HashMap<>();
+        thresholds.put("ENGINE" ,5);
+        thresholds.put("ELECTRICAL" ,10);
+        thresholds.put("BODYWORK", 5);
+        thresholds.put("BRAKES", 10);
+
+        LSM sReader = new LSM("inventory_clean.txt",5,thresholds);
+        sReader.lowStock();
 
         ManageInventory CRUD = new ManageInventory("inventory_clean.txt");
         CRUD.addPart();
+
+       /* ManageInventory CRUD = new ManageInventory("inventory_clean.txt");
+        CRUD.updatePart();*/
 
 
     }
