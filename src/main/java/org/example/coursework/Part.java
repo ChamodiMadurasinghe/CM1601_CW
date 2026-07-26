@@ -13,6 +13,7 @@ public class Part {
 
     private static final String Images = "images";
     private static final String[] ALLOWED_EXTENSIONS = { ".png", ".jpg", ".jpeg", ".svg" };
+    public static final int defaultThreshold = 10;
 
     private String id;
     private String name;
@@ -22,8 +23,9 @@ public class Part {
     private String category;
     private String date;
     private String imageFile;
+    private int lowStockThreshold;
 
-    public Part(){}
+    public Part(){ this.lowStockThreshold = defaultThreshold;}
 
     public Part(String id,String name,String brand,double price,int quantity,String category,String date,String imageFile){
         this.id = id;
@@ -34,6 +36,7 @@ public class Part {
         this.category = category;
         this.date = date;
         this.imageFile = imageFile;
+        this.lowStockThreshold = lowStockThreshold;
     }
 
     public String getId() {return id;}
@@ -60,10 +63,15 @@ public class Part {
     public String getImageFile() {return imageFile;}
     public void setImageFile(String imageFile) {this.imageFile = imageFile;}
 
+    public int getLowStockThreshold(){return lowStockThreshold;}
+    public void setLowStockThreshold(int lowStockThreshold) {this.lowStockThreshold = lowStockThreshold;}
+
+    public boolean isLowStock(){return quantity <= lowStockThreshold;}
+
     @Override
     public String toString(){
         return id + "," + name + "," + brand + "," + String.format("%.2f", price) + "," + quantity + "," + category +
-                "," + date + "," + imageFile;
+                "," + date + "," + imageFile + "," + lowStockThreshold;
 
     }
 
