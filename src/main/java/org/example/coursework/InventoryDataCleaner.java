@@ -104,11 +104,12 @@ public class InventoryDataCleaner {
                         imageFile = lastField;
                     }
 
-                    writer.printf("%s,%s,%s,%.2f,%d,%s,%s,%s%n",
-                            id, name, brand, price, quantity, category, cleanDate, imageFile);
+                    int threshold = Part.defaultThreshold;
+
+                    writer.printf("%s,%s,%s,%.2f,%d,%s,%s,%s,%d%n",
+                            id, name, brand, price, quantity, category, cleanDate, imageFile, threshold);
                     cleanedCount++;
 
-                } catch (NumberFormatException e) {
                 } catch (ArrayIndexOutOfBoundsException e) {
                 }
             }
