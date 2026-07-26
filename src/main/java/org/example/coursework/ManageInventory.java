@@ -41,7 +41,7 @@ public class ManageInventory {
                 p.setDate(f[6].trim());
                 p.setImageFile(f[7].trim());
                 p.setLowStockThreshold(f.length >8? safeInt(f[8].trim()) : Part.defaultThreshold);
-                parts.add(p)
+                parts.add(p);
             }
         }catch (IOException e){
             throw new RuntimeException("Could not load inventory file: " + initialFile,e);
