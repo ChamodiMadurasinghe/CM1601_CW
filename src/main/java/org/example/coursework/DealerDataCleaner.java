@@ -16,7 +16,6 @@ public class DealerDataCleaner {
                 PrintWriter writer = new PrintWriter((new FileWriter(finalFile)))) {
             String line;
             int cleanedCount = 0;
-
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
