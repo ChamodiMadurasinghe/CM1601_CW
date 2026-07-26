@@ -2,248 +2,163 @@ package org.example.coursework;
 
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class ManageInventory {
-    private String initialFile;
-    private Scanner scanner;
+    private final String initialFile;
+    private final List<Part> parts = new ArrayList<>();
+    private final AuditLogger auditLogger;
 
 
-    public ManageInventory(String initialFile) {
+    public ManageInventory(String initialFile) {this(initialFile,new AuditLogger());}
+
+    public ManageInventory(String initialFile, AuditLogger auditLogger) {
         this.initialFile = initialFile;
-        this.scanner = new Scanner(System.in);
+        this.auditLogger = auditLogger;
+        load();
     }
 
-    public static class Part {
-        private String id;
-        private String name;
-        private String brand;
-        private double price;
-        private int quantity;
-        private String category;
-        private String date;
-        private String imageFile;
-    }
-
-    public String addPart() {
-
-        String id = validateId();
-        String name = validateName();
-        String brand = validateBrand();
-        String price = validatePrice();
-        String quantity = validateQty();
-        String category = validateCategory();
-        String date = validateDate();
-        String imageFile = validateImgFile();
-
-        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(initialFile, true)))) {
-
-            String mBrand = brand.isEmpty() ? "NULL" : brand;
-            String mPrice = (price == null || price.isEmpty()) ? "NULL" : price;
-            String mQty = (quantity == null || quantity.isEmpty()) ? "NULL" : quantity;
-            String mCategory = category.isEmpty() ? "NULL" : category;
-            String mDate = (date == null || date.isEmpty()) ? "NULL" : date;
-            String mImg = imageFile.isEmpty() ? "NULL" : imageFile;
-
-            writer.println(id + "," + name + "," + mBrand + "," + mPrice + "," + mQty + "," + mCategory + "," + mDate + "," + mImg);
-
-        } catch (IOException e) {
-            throw new RuntimeException("Error writing to inventory file: " + initialFile, e);
-
-        }
-
-        return "Part " + id + " , " + name + " added to the " + initialFile + " successfully.";
-
-    }
-
-    private String validateId() {
-        while (true) {
-            System.out.print("Enter part ID (ex:P001/p001): ");
-            String id = scanner.nextLine().toUpperCase();
-
-            if (id.isEmpty()) {
-                System.out.println("Part ID cannot be empty.");
-                continue;
-            }
-
-            if (!id.matches("P\\d{3}")) {
-                System.out.println("Please enter the ID in correct format.");
-                continue;
-            }
-            if (idExists(id)) {
-                System.out.println("Part ID is already exists in inventory.");
-                continue;
-            }
-            if (id == null) {
-                System.out.println("Part ID cannot be empty.");
-            }
-            return id;
-
-        }
-    }
-
-    private boolean idExists(String id) {
+    private void load(){
+        parts.clear();
         File file = new File(initialFile);
-        if (!file.exists()) {
-            return false;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
-                String[] fields = line.split(",", -1);
-                if (fields.length == 0) {
-                    continue;
-                }
-                String existingId = fields[0].trim();
-                if (existingId.equalsIgnoreCase(id)) {
-                    return true;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            return false;
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading inventory file while checking ID: " + initialFile, e);
-        }
-
-        return false;
-    }
-
-    private String validateName() {
-        while (true) {
-            System.out.print("Enter part name: ");
-            String name = scanner.nextLine().trim();
-
-            if (name.isEmpty()) {
-                System.out.println("Part name cannot be empty.");
-                continue;
-            }
-            return name;
-        }
-    }
-
-    private String validateBrand() {
-        System.out.print("Enter part brand: ");
-        String brand = scanner.nextLine().trim();
-
-        if (brand.isEmpty()) {
-            System.out.println("NULL");
-        }
-        return brand;
-    }
-
-    private String validatePrice() {
-        while (true) {
-            System.out.print("Enter part price (0.00): ");
-            String price = scanner.nextLine();
-            if (price == null || price.trim().isEmpty()) {
-                System.out.println("NULL");
-                return null;
-            }
-            try {
-                double iprice = Double.parseDouble(
-                        price.replace("Rs.","").replace("Rs",""));
-                if (iprice < 0.00) {
-                    System.out.println("Price cannot be negative.");
-                    continue;
-                }
-                return price;
-
-
-
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input.Please enter a valid price.");
-
-            }
-        }
-    }
-
-    private String validateQty() {
-        while (true) {
-            System.out.print("Enter part quantity: ");
-            String quantity = scanner.nextLine().trim();
-
-            if (quantity.isEmpty()) {
-                System.out.println("NULL");
-                return null;
-            }
-            try {
-                int qty = Integer.parseInt(quantity);
-                if (qty < 0) {
-                    System.out.println("Quantity cannot be negative.");
-                    continue;
-                }
-                return quantity;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input.Please enter a valid quantity.");
-            }
-        }
-    }
-
-    private String validateCategory() {
-        System.out.print("Enter part category: ");
-        String category = scanner.nextLine().trim();
-
-        if (category.isEmpty()) {
-            System.out.println("NULL");
-        }
-        return category;
-    }
-
-    private String validateDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        while (true) {
-            System.out.print("Enter date (yyyy-MM-dd): ");
-            String date = scanner.nextLine().trim();
-
-            if (date.isEmpty()) {
-                System.out.println("NULL");
-                return null;
-            }
-            try {
-                LocalDate.parse(date, formatter);
-                return date;
-            } catch (DateTimeParseException e) {
-                System.out.println("Please enter date in correct format.");
-
-            }
-        }
-    }
-
-    private String validateImgFile(){
-        System.out.print("Enter image file (.jpeg / .png / .svg): ");
-        String imgFile = scanner.nextLine().trim();
-
-        if (imgFile.isEmpty()) {
-            System.out.println("NULL");
-        }
-        return imgFile;
-    }
-
-    public void updatePart(){
-        System.out.println("Enter part ID to update (ex:p001/P001): ");
-        String inputId = scanner.nextLine().trim().toUpperCase();
-
-        if (!idExists(inputId)){
-            System.out.println("Part ID does not exists in the inventory.");
+        if(!file.exists()){
             return;
         }
-        if(inputId.matches(id)){
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                if(line.trim().isEmpty()) continue;
+                String[] f = line.split(",",-1);
+                if(f.length <8) continue;
 
+                Part p = new Part();
+                p.setId(f[0].trim());
+                p.setName(f[1].trim());
+                p.setBrand(f[2].trim());
+                p.setPrice(safeDouble(f[3].trim()));
+                p.setQuantity(safeInt(f[4].trim()));
+                p.setCategory(f[5].trim());
+                p.setDate(f[6].trim());
+                p.setImageFile(f[7].trim());
+                p.setLowStockThreshold(f.length >8? safeInt(f[8].trim()) : Part.defaultThreshold);
+                parts.add(p)
+            }
+        }catch (IOException e){
+            throw new RuntimeException("Could not load inventory file: " + initialFile,e);
         }
-
     }
 
+    private void saveAll(){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(initialFile)) ){
+            for (Part p: parts){
+                writer.println(p.toString());
+            }
+        }catch (IOException e){
+            throw new RuntimeException("Error saving inventory file: " + initialFile,e);
+        }
+    }
 
+    private double safeDouble(String value){
+        try{
+            return Double.parseDouble(value);
+        }catch (NumberFormatException e){
+            return 0.0;
+        }
+    }
 
+    private int safeInt(String value){
+        try{
+            return Integer.parseInt(value);
+        }catch (NumberFormatException e){
+            return 0;
+        }
+    }
 
+    public List<String> getAllIds(){
+        List<String> ids = new ArrayList<>();
+        for (Part p : parts){
+            ids.add(p.getId());
+        }
+        return ids;
+    }
+
+    public Part findById(String id){
+        if (id == null) return null;
+        for (Part p : parts){
+            if(p.getId().equalsIgnoreCase(id.trim())){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public boolean idExists(String id){ return findById(id) != null;}
+
+    public int getTotalItemCount(){
+        int total = 0;
+        for (Part p: parts){
+            total += p.getQuantity();
+        }
+        return total;
+    }
+
+    public double getTotalInventoryValue(){
+        double total = 0;
+        for(Part p: parts){
+            total += p.getPrice() * p.getQuantity();
+        }
+        return total;
+    }
+
+    public void addPart (Part part){
+        if (idExists(part.getId())){
+            throw new IllegalArgumentException("Part ID " +part.getId() + " already exists.");
+        }
+        parts.add(part);
+        saveAll();
+        auditLogger.log("ADD",part.getId(),part.getQuantity());
+    }
+
+    public void updatePart(String id, Part updated){
+        Part existing = findById(id);
+        if (existing == null){
+            throw new IllegalArgumentException("Part Id " + id + " was not found.");
+        }
+        existing.setName(updated.getName());
+        existing.setBrand(updated.getBrand());
+        existing.setPrice(updated.getPrice());
+        existing.setQuantity(updated.getQuantity());
+        existing.setCategory(updated.getCategory());
+        existing.setDate(updated.getDate());
+        existing.setImageFile(updated.getImageFile());
+        existing.setLowStockThreshold(updated.getLowStockThreshold());
+        saveAll();
+        auditLogger.log("UPDATE",existing.getId(),existing.getQuantity());
+    }
+
+    public void deletePart(String id){
+        Part existing = findById(id);
+        if (existing == null){
+            throw new IllegalArgumentException("Part ID " + id + " was not found.");
+        }
+        parts.remove(existing);
+        saveAll();
+        auditLogger.log("DELETE",existing.getId(),0);
+    }
+
+    public void reduceStock(String id, int quantitySold){
+        Part existing = findById(id);
+        if (existing == null){
+            throw new IllegalArgumentException("Part ID " + id + " was not found.");
+        }
+        if (quantitySold > existing.getQuantity()){
+            throw new IllegalArgumentException("Not enough stock of " + existing.getName() + " to complete this sale.");
+        }
+        existing.setQuantity(existing.getQuantity() - quantitySold);
+        saveAll();
+    }
 }
+
 
 
 
