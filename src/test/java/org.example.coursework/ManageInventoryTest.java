@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InventoryManagerTest {
+class ManageInventoryTest {
 
     @TempDir
     Path tempDir;
@@ -28,7 +28,7 @@ class InventoryManagerTest {
     }
 
     @Test
-    void addingDuplicateId_isRejected() {
+    void addingDuplicateIdRejected() {
         ManageInventory manager = newManager();
         manager.addPart(new Part("P001", "Chain", "TVS", 500.0, 10, "ENGINE", "2026-01-01", "NULL", 5));
 
@@ -37,7 +37,7 @@ class InventoryManagerTest {
     }
 
     @Test
-    void updatingPart_changesStoredValues() {
+    void updatingPart() {
         ManageInventory manager = newManager();
         manager.addPart(new Part("P001", "Chain", "TVS", 500.0, 10, "ENGINE", "2026-01-01", "NULL", 5));
 
@@ -52,14 +52,14 @@ class InventoryManagerTest {
     }
 
     @Test
-    void updatingUnknownId_throws() {
+    void updatingUnknownId() {
         ManageInventory manager = newManager();
         assertThrows(IllegalArgumentException.class, () -> manager.updatePart("P999",
                 new Part("P999", "Ghost", "None", 1.0, 1, "ENGINE", "2026-01-01", "NULL", 1)));
     }
 
     @Test
-    void deletingPart_removesItFromInventory() {
+    void deletingPart() {
         ManageInventory manager = newManager();
         manager.addPart(new Part("P001", "Chain", "TVS", 500.0, 10, "ENGINE", "2026-01-01", "NULL", 5));
 
@@ -69,13 +69,13 @@ class InventoryManagerTest {
     }
 
     @Test
-    void deletingUnknownId_throws() {
+    void deletingUnknownId() {
         ManageInventory manager = newManager();
         assertThrows(IllegalArgumentException.class, () -> manager.deletePart("P999"));
     }
 
     @Test
-    void totals_areCalculatedCorrectly() {
+    void totals() {
         ManageInventory manager = newManager();
         manager.addPart(new Part("P001", "Chain", "TVS", 500.0, 10, "ENGINE", "2026-01-01", "NULL", 5));
         manager.addPart(new Part("P002", "Brake Pad", "Bajaj", 200.0, 5, "BRAKES", "2026-01-01", "NULL", 5));
