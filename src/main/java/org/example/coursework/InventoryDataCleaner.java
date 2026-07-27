@@ -79,16 +79,10 @@ public class InventoryDataCleaner {
                             .replace("Rs.", "")
                             .replace("Rs", "")
                             .trim();
-                    double price = Double.parseDouble(iPrice);
-                    if(price == 0.00) {
-                        price = Double.parseDouble(empty);
-                    }
+                    double price = iPrice.isEmpty() ? 0.0 : Double.parseDouble(iPrice);
 
                     String qty = fields[4].trim();
-                    int quantity = Integer.parseInt(qty);
-                    if(qty.isEmpty()) {
-                        quantity = Integer.parseInt("0");
-                    }
+                    int quantity = qty.isEmpty() ? 0 : Integer.parseInt(qty);
 
                     String category = empty;
                     if (fields.length > 5 && !fields[5].trim().isEmpty()) {
