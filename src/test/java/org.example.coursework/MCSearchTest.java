@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SearchServiceTest {
+class MCSearchTest {
 
     private final MCSearch mcSearch = new MCSearch();
 
@@ -20,34 +20,34 @@ class SearchServiceTest {
     }
 
     @Test
-    void filterByCategory_returnsOnlyThatCategory() {
+    void filterByCategory() {
         List<Part> results = mcSearch.search(sampleParts(), "ENGINE", null, null, null);
         assertEquals(1, results.size());
         assertEquals("P001", results.get(0).getId());
     }
 
     @Test
-    void filterByPriceRange_returnsPartsWithinRange() {
+    void filterByPriceRange() {
         List<Part> results = mcSearch.search(sampleParts(), null, 1000.0, 4000.0, null);
         assertEquals(2, results.size()); // Chain Sprocket and Brake Pad
     }
 
     @Test
-    void filterByKeyword_matchesNameOrBrand() {
+    void filterByKeyword() {
         List<Part> results = mcSearch.search(sampleParts(), null, null, null, "exide");
         assertEquals(1, results.size());
         assertEquals("P003", results.get(0).getId());
     }
 
     @Test
-    void combiningThreeFilters_narrowsResultsCorrectly() {
+    void combiningThreeFilters() {
         List<Part> results = mcSearch.search(sampleParts(), "ENGINE", 1000.0, 5000.0, "chain");
         assertEquals(1, results.size());
         assertEquals("P001", results.get(0).getId());
     }
 
     @Test
-    void noMatches_returnsEmptyList() {
+    void returnsEmptyList() {
         List<Part> results = mcSearch.search(sampleParts(), "BODYWORK", null, null, null);
         assertTrue(results.isEmpty());
     }
