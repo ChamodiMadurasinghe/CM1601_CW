@@ -74,6 +74,12 @@ public class ManageInventory {
         }
     }
 
+    public List<Part> getAllPartsSorted(){
+        List<Part> copy = new ArrayList<>(parts);
+        Sortings.byCategoryAndId(copy);
+        return copy;
+    }
+
     public List<String> getAllIds(){
         List<String> ids = new ArrayList<>();
         for (Part p : parts){
