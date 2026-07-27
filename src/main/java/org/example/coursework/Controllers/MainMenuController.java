@@ -39,22 +39,22 @@ public class MainMenuController {
 
     @FXML
     private void onAddPart() {
-        SceneAlerts.openWindow("add-item.fxml", "Add New Part");
+        SceneAlerts.openWindow("add.fxml", "Add Part");
     }
 
     @FXML
     private void onUpdatePart() {
-        SceneAlerts.openWindow("update-item.fxml", "Update Part");
+        SceneAlerts.openWindow("update.fxml", "Update Part");
     }
 
     @FXML
     private void onDeletePart() {
-        SceneAlerts.openWindow("delete-item.fxml", "Delete Part");
+        SceneAlerts.openWindow("delete.fxml", "Delete Part");
     }
 
     @FXML
     private void onViewInventory() {
-        SceneAlerts.openWindow("view-inventory.fxml", "All Inventory Parts");
+        SceneAlerts.openWindow("view.fxml", "All Inventory Parts");
     }
 
     @FXML
@@ -64,7 +64,7 @@ public class MainMenuController {
 
     @FXML
     private void onCart() {
-        SceneAlerts.openWindow("cart.fxml", "Point of Sale");
+        SceneAlerts.openWindow("cart.fxml", "Cart");
     }
 
     @FXML
