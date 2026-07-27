@@ -3,15 +3,15 @@ package org.example.coursework;
 import java.util.List;
 
 public class CheckoutParts {
-    private final ManageInventory manageInventory;
-    private final AuditLogger auditLogger;
+    private static ManageInventory manageInventory;
+    private static AuditLogger auditLogger;
 
     public CheckoutParts(ManageInventory manageInventory,AuditLogger auditLogger){
         this.manageInventory = manageInventory;
         this.auditLogger = auditLogger;
     }
 
-    public Receipt checkout(Cart cart){
+    public static Receipt checkout(Cart cart){
         if(cart == null || cart.isEmpty()){
             throw new IllegalArgumentException("Cart is empty. Add at least one item before checkout.");
         }
