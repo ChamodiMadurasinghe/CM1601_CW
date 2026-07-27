@@ -25,14 +25,14 @@ public class Validator {
         return id;
     }
 
-    public String validateName (String initial){
+    public static String validateName (String initial){
         if (initial == null || initial.trim().isEmpty()){
             throw new IllegalArgumentException("Part name cannot be empty.");
         }
         return initial.trim();
     }
 
-    public String validateBrand (String initial){
+    public static String validateBrand (String initial){
         if (initial == null || initial.trim().isEmpty()){
             return empty;
         }
