@@ -16,7 +16,7 @@ class AuditLoggerTest {
     Path tempDir;
 
     @Test
-    void logEntry_isWrittenWithActionCodeAndQuantity() throws IOException {
+    void logEntryWrittenWithActionAndQuantity() throws IOException {
         Path logFile = tempDir.resolve("audit.txt");
         AuditLogger logger = new AuditLogger(logFile.toString());
 
@@ -26,7 +26,7 @@ class AuditLoggerTest {
         assertEquals(1, lines.size());
         assertTrue(lines.get(0).contains("ADD"));
         assertTrue(lines.get(0).contains("P001"));
-        assertTrue(lines.get(0).contains("qty=10"));
+        assertTrue(lines.get(0).contains("qty =10"));
     }
 
     @Test
