@@ -22,10 +22,13 @@ public class CommContext {
         getFileIfMissing(Dealer_legacy_file);
 
         if (!new File(Inventory_clean_file).exists()){
+            new InventoryDataCleaner(Inventory_legacy_file).cleanInventory(Inventory_clean_file);
+        }
+        if (!new File(Dealer_clean_file).exists()){
             new DealerDataCleaner(Dealer_legacy_file).cleanLegacy(Dealer_clean_file);
         }
 
-        manageInventory = new ManageInventory(Inventory_clean_file,auditLogger);
+        manageInventory = new ManageInventory(Inventory_clean_file, auditLogger);
         dealerSelector = new RDS(Dealer_clean_file);
 
         System.out.println("Loaded " + manageInventory.getAllPartsSorted().size() + " parts and set up dealer selector.");
@@ -42,7 +45,7 @@ public class CommContext {
                 return;
             }
             Files.copy(in,target.toPath());
-            System.out.println("Extracted bundles file: " + initialFile);
+            System.out.println("Extracted bundled file: " + initialFile);
         }catch (IOException e){
             System.out.println("Could not extract bundled file " + initialFile + ": " + e.getMessage());
         }
