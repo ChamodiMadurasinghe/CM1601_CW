@@ -3,7 +3,7 @@ package org.example.coursework;
 import java.util.*;
 
 public class MCSearch {
-    public List<Part> search (List<Part> parts, String category, Double minPrice, Double maxPrice, String keyword) {
+    public static List<Part> search (List<Part> parts, String category, Double minPrice, Double maxPrice, String keyword) {
         List<Part> results = new ArrayList<>();
 
         String categoryFilter = (category == null) ? "" : category.trim().toUpperCase();

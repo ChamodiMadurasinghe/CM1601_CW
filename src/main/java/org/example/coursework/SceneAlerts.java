@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class SceneAlerts {
     public static void openWindow (String fxmlFile,String title){
@@ -17,7 +16,7 @@ public class SceneAlerts {
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.show();
-        }catch (IOException e){
+        }catch (Exception e){
             showError("Could not open screen: " + e.getMessage());
         }
     }
