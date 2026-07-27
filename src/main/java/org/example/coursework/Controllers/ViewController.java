@@ -34,6 +34,7 @@ public class ViewController {
 
     @FXML
     public void initialize() {
+        partsTable.setFixedCellSize(56);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
@@ -43,6 +44,7 @@ public class ViewController {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         thresholdColumn.setCellValueFactory(new PropertyValueFactory<>("lowStockThreshold"));
         imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageFile"));
+
 
         // Show the part's picture inside the table cell instead of just its file name
         imageColumn.setCellFactory(column -> new TableCell<>() {
