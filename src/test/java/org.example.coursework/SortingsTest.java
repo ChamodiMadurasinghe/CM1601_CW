@@ -7,14 +7,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SortUtilTest {
+class SortingsTest {
 
     private Part part(String id, String category) {
         return new Part(id, "Name-" + id, "Brand", 100.0, 5, category, "2026-01-01", "NULL", 10);
     }
 
     @Test
-    void parts_areSortedByCategoryThenById() {
+    void partsSortedByCategoryThenById() {
         List<Part> parts = new ArrayList<>();
         parts.add(part("P003", "ENGINE"));
         parts.add(part("P001", "BRAKES"));
@@ -30,7 +30,7 @@ class SortUtilTest {
     }
 
     @Test
-    void alreadySortedList_staysUnchanged() {
+    void alreadySortedList() {
         List<Part> parts = new ArrayList<>();
         parts.add(part("P001", "BRAKES"));
         parts.add(part("P002", "ENGINE"));

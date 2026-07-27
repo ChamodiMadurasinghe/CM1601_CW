@@ -10,28 +10,28 @@ import static org.junit.jupiter.api.Assertions.*;
 class ValidatorTest {
 
     @Test
-    void validId_isAcceptedAndUppercased() {
+    void validIdAcceptedAndUppercased() {
         assertEquals("P001", Validator.validateId("p001", List.of()));
     }
 
     @Test
-    void wrongFormatId_isRejected() {
+    void wrongFormatIdRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validateId("PART1", List.of()));
     }
 
     @Test
-    void emptyId_isRejected() {
+    void emptyIdRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validateId("  ", List.of()));
     }
 
     @Test
-    void duplicateId_isRejected() {
+    void duplicateIdRejected() {
         List<String> existing = Arrays.asList("P001", "P002");
         assertThrows(IllegalArgumentException.class, () -> Validator.validateId("p001", existing));
     }
 
     @Test
-    void emptyName_isRejected() {
+    void emptyNameRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validateName(""));
     }
 
@@ -41,37 +41,37 @@ class ValidatorTest {
     }
 
     @Test
-    void priceWithRsPrefix_isParsedCorrectly() {
+    void priceParsedCorrectly() {
         assertEquals(3500.0, Validator.validatePrice("Rs. 3500"));
     }
 
     @Test
-    void negativePrice_isRejected() {
+    void negativePriceRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validatePrice("-100"));
     }
 
     @Test
-    void nonNumericPrice_isRejected() {
+    void nonNumericPriceRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validatePrice("abc"));
     }
 
     @Test
-    void negativeQuantity_isRejected() {
+    void negativeQuantityRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validateQuantity("-5"));
     }
 
     @Test
-    void validQuantity_isParsed() {
+    void validQuantityParsed() {
         assertEquals(10, Validator.validateQuantity("10"));
     }
 
     @Test
-    void dateWithSlashes_isNormalizedToIso() {
+    void dateNormalizedToIso() {
         assertEquals("2026-07-20", Validator.validateDate("2026/07/20"));
     }
 
     @Test
-    void badDate_isRejected() {
+    void wrongDateRejected() {
         assertThrows(IllegalArgumentException.class, () -> Validator.validateDate("20/07/2026"));
     }
 
@@ -81,7 +81,7 @@ class ValidatorTest {
     }
 
     @Test
-    void validThreshold_isParsed() {
+    void validThresholdParsed() {
         assertEquals(5, Validator.validateThreshold("5"));
     }
 }
