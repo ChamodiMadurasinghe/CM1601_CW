@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheckoutServiceTest {
+class CheckoutPartsTest {
 
     @TempDir
     Path tempDir;
@@ -103,7 +103,7 @@ class CheckoutServiceTest {
     }
 
     @Test
-    void cannotAddMoreThanAvailableStockToCart() {
+    void cannotAddMoreThanAvailableStock() {
         ManageInventory manager = newManager();
         manager.addPart(new Part("P001", "Piston", "Hero", 1000.0, 3, "ENGINE", "2026-01-01", "NULL", 5));
 
@@ -112,7 +112,7 @@ class CheckoutServiceTest {
     }
 
     @Test
-    void cannotAddZeroOrNegativeQuantityToCart() {
+    void cannotAddZeroOrNegativeQuantity() {
         ManageInventory manager = newManager();
         manager.addPart(new Part("P001", "Piston", "Hero", 1000.0, 3, "ENGINE", "2026-01-01", "NULL", 5));
 
