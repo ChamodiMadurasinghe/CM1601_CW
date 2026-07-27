@@ -6,10 +6,10 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 public class CommContext {
-    public static final String Inventory_legacy_file = "inventory_legacy.txt";
+    public static final String Inventory_legacy_file = "inventoy_legacy.txt";
     public static final String Inventory_clean_file = "inventory_clean.txt";
     public static final String Dealer_legacy_file = "dealers_legacy.txt";
-    public static final String Dealer_clean_file = "dealers_clean.txt";
+    public static final String Dealer_clean_file = "dealer_clean.txt";
 
     public static final String Audit_log_file = "audit_log.txt";
 
@@ -38,7 +38,7 @@ public class CommContext {
         }
         try(InputStream in = CommContext.class.getResourceAsStream(initialFile)){
             if (in == null){
-                System.out.println("WARINIG: bundeled file " + initialFile  + " was not found.");
+                System.out.println("WARNING: "+ initialFile  + " was not found.");
                 return;
             }
             Files.copy(in,target.toPath());
