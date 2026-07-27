@@ -14,12 +14,12 @@
    <Label text="Spare Parts Inventory System" style="-fx-font-size: 14px;"/>
 
    <VBox spacing="10.0" alignment="CENTER" style="-fx-padding: 16 0 0 0;">
-      <Button text="Add New Part" prefWidth="220" onAction="#onAddPart"/>
+      <Button text="Add Part" prefWidth="220" onAction="#onAddPart"/>
       <Button text="Update Part" prefWidth="220" onAction="#onUpdatePart"/>
       <Button text="Delete Part" prefWidth="220" onAction="#onDeletePart"/>
       <Button text="View All Parts" prefWidth="220" onAction="#onViewInventory"/>
       <Button text="Search Parts" prefWidth="220" onAction="#onSearch"/>
-      <Button text="Point of Sale (Cart)" prefWidth="220" onAction="#onCart"/>
+      <Button text="Cart" prefWidth="220" onAction="#onCart"/>
       <Button text="View Dealers" prefWidth="220" onAction="#onViewDealers"/>
       <Button text="Exit" prefWidth="220" style="-fx-text-fill: #b00020;" onAction="#onExit"/>
    </VBox>
