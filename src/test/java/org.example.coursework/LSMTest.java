@@ -11,7 +11,7 @@ class LSMTest {
     private final LSM lsm = new LSM();
 
     @Test
-    void partAtOrBelowItsOwnThreshold_isReportedLowStock() {
+    void reportedLowStock() {
         List<Part> parts = new ArrayList<>();
         parts.add(new Part("P001", "Chain", "TVS", 500.0, 3, "ENGINE", "2026-01-01", "NULL", 5));   // 3 <= 5 -> low
         parts.add(new Part("P002", "Bulb", "Osram", 300.0, 20, "ELECTRICAL", "2026-01-01", "NULL", 10)); // 20 > 10 -> ok
@@ -23,9 +23,8 @@ class LSMTest {
     }
 
     @Test
-    void differentPartsCanHaveDifferentThresholds() {
+    void differentPartsDifferentThresholds() {
         List<Part> parts = new ArrayList<>();
-        // Same quantity (8), but different thresholds mean different low-stock outcomes
         parts.add(new Part("P001", "Chain", "TVS", 500.0, 8, "ENGINE", "2026-01-01", "NULL", 5));    // 8 > 5 -> ok
         parts.add(new Part("P002", "Battery", "Exide", 9000.0, 8, "ELECTRICAL", "2026-01-01", "NULL", 10)); // 8 <= 10 -> low
 
@@ -36,7 +35,7 @@ class LSMTest {
     }
 
     @Test
-    void noLowStockParts_returnsEmptyList() {
+    void returnsEmptyList() {
         List<Part> parts = new ArrayList<>();
         parts.add(new Part("P001", "Chain", "TVS", 500.0, 50, "ENGINE", "2026-01-01", "NULL", 5));
 
