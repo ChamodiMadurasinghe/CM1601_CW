@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="14.0" style="-fx-padding: 20;"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.coursework.Controllers.SearchController">
+
+    <Label text="Search Parts (combine any of the filters below)" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="12.0" vgap="10.0">
+        <Label text="Category:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="categoryField" promptText="e.g. ENGINE" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Min Price:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <TextField fx:id="minPriceField" promptText="e.g. 500" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+        <Label text="Max Price:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="maxPriceField" promptText="e.g. 5000" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Keyword (name/brand):" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <TextField fx:id="keywordField" promptText="e.g. chain" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+    </GridPane>
+
+    <HBox spacing="12.0">
+        <Button text="Search" onAction="#onSearch"/>
+        <Button text="Clear Filters" onAction="#onClear"/>
+    </HBox>
+
+    <TableView fx:id="resultsTable" prefHeight="380.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="Item Code" prefWidth="70.0"/>
+            <TableColumn fx:id="nameColumn" text="Item Name" prefWidth="130.0"/>
+            <TableColumn fx:id="brandColumn" text="Brand" prefWidth="100.0"/>
+            <TableColumn fx:id="priceColumn" text="Price" prefWidth="80.0"/>
+            <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="70.0"/>
+            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="100.0"/>
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER">
+        <Button text="Back" onAction="#onBack"/>
+    </HBox>
+</VBox>

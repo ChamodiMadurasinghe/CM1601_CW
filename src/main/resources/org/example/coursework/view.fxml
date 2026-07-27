@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12.0" style="-fx-padding: 20;"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.coursework.Controllers.ViewController">
+
+    <Label text="All Inventory Parts (grouped by category, ordered by part code)"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="partsTable" prefHeight="420.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="Item Code" prefWidth="70.0"/>
+            <TableColumn fx:id="nameColumn" text="Item Name" prefWidth="120.0"/>
+            <TableColumn fx:id="brandColumn" text="Brand" prefWidth="90.0"/>
+            <TableColumn fx:id="priceColumn" text="Price" prefWidth="80.0"/>
+            <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="70.0"/>
+            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="90.0"/>
+            <TableColumn fx:id="dateColumn" text="Purchase Date" prefWidth="100.0"/>
+            <TableColumn fx:id="thresholdColumn" text="Low Stock Threshold" prefWidth="120.0"/>
+            <TableColumn fx:id="imageColumn" text="Image" prefWidth="70.0"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="24.0">
+        <Label fx:id="totalCountLabel" text="Total Item Count: 0" style="-fx-font-weight: bold;"/>
+        <Label fx:id="totalValueLabel" text="Total Inventory Value: Rs. 0.00" style="-fx-font-weight: bold;"/>
+    </HBox>
+
+    <HBox alignment="CENTER">
+        <Button text="Back" onAction="#onBack"/>
+    </HBox>
+</VBox>
