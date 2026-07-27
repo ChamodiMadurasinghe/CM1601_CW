@@ -27,7 +27,7 @@ public class Part {
 
     public Part(){ this.lowStockThreshold = defaultThreshold;}
 
-    public Part(String id,String name,String brand,double price,int quantity,String category,String date,String imageFile){
+    public Part(String id,String name,String brand,double price,int quantity,String category,String date,String imageFile,int lowStockThreshold){
         this.id = id;
         this.name = name;
         this.brand = brand;
