@@ -23,9 +23,9 @@ class SortingsTest {
 
         Sortings.byCategoryAndId(parts);
 
-        assertEquals("P001", parts.get(0).getId()); // BRAKES first alphabetically
+        assertEquals("P001", parts.get(0).getId());
         assertEquals("P004", parts.get(1).getId());
-        assertEquals("P002", parts.get(2).getId()); // then ENGINE, ordered by id
+        assertEquals("P002", parts.get(2).getId());
         assertEquals("P003", parts.get(3).getId());
     }
 
