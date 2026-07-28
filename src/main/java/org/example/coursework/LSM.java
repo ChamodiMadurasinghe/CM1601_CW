@@ -1,8 +1,5 @@
 package org.example.coursework;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class LSM {
