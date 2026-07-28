@@ -45,8 +45,6 @@ public class ViewController {
         thresholdColumn.setCellValueFactory(new PropertyValueFactory<>("lowStockThreshold"));
         imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageFile"));
 
-
-        // Show the part's picture inside the table cell instead of just its file name
         imageColumn.setCellFactory(column -> new TableCell<>() {
             private final ImageView imageView = new ImageView();
 
