@@ -98,7 +98,6 @@ public class Part {
         return false;
     }
 
-    /** Used when the user browses for an image file (e.g. when adding/updating a part) - copies it into the images folder. */
     public static String imageStore(File sourceFile) throws IOException {
         if(!isValidImageFile(sourceFile)){
             throw new IllegalArgumentException(
@@ -142,12 +141,6 @@ public class Part {
         return file.exists() ? file :null;
     }
 
-    /**
-     * Loads an image for display in the inventory table.
-     * Uses Java's ImageIO reader (via Swing) instead of JavaFX's own image loader,
-     * because ImageIO reads real-world downloaded images (including WebP, via the
-     * added TwelveMonkeys library) more reliably than JavaFX's built-in decoder.
-     */
     public static Image loadImage(String fileName){
         File file = resolveImageFile(fileName);
         if(file == null) return null;
@@ -160,7 +153,7 @@ public class Part {
         try {
             BufferedImage bufferedImage = ImageIO.read(file);
             if (bufferedImage == null) {
-                return null; // file exists but no reader could decode it
+                return null;
             }
             return SwingFXUtils.toFXImage(bufferedImage, null);
         } catch (IOException e){
